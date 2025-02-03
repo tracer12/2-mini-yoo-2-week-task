@@ -20,7 +20,7 @@ public class Main {
             System.out.println(Constants.PRODUCT_LIST_HEADER);
             System.out.println(Constants.PRODUCT_LIST_COLUMNS);
             for (int i = 0; i < items.size(); i++) {
-                System.out.println(String.format("%-7d %-11s %-9d %d", i + 1, items.get(i).getName(), items.get(i).getPrice(), items.get(i).getQuantity()));
+                System.out.println(String.format("%-7d %-11s %-9d %d", items.get(i).getOrder(), items.get(i).getName(), items.get(i).getPrice(), items.get(i).getQuantity()));
             }
             System.out.println(Constants.EXIT_OPTION);
             System.out.print(Constants.ENTER_PRODUCT_NUMBER);
@@ -51,9 +51,10 @@ public class Main {
                 totalPrice += selectedItem.getPrice() * quantity;
                 selectedItem.decreaseQuantity(quantity);
                 System.out.println("\n" + selectedItem.getName() + " " + quantity + "개 추기되었습니다.");
-                System.out.println("현재가격: " + totalPrice + "원\n");
-
+                System.out.println("현재가격: " + totalPrice + "원");
                 System.out.print(Constants.PROCEED_PURCHASE);
+                
+                //재구매 로직
                 while (true) {
                     try {
                         String input = scanner.nextLine().toUpperCase();
@@ -78,6 +79,7 @@ public class Main {
                 System.out.println(e.getMessage());
             }
         }
+        //결제 로직
         if (convenienceFlag == 0) {
             while (true) {
                 try {
@@ -85,7 +87,7 @@ public class Main {
                     int amountPaid = Integer.parseInt(scanner.nextLine());
 
                     if (amountPaid < totalPrice) {
-                        System.out.println("\n" + Constants.INSUFFICIENT_FUNDS);
+                        System.out.println(Constants.INSUFFICIENT_FUNDS);
                     } else if (amountPaid == totalPrice) {
                         System.out.println("\n" + Constants.PAYMENT_COMPLETED);
                         break;
@@ -101,5 +103,4 @@ public class Main {
             scanner.close();
         }
     }
-
 }
