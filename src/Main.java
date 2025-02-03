@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<Item> items = initializeProductList();
+        List<Item> items = ProductList.initializeProductList();
         int totalPrice = 0;
         int purchaseFlag = 0;
         int convenienceFlag = 0;
@@ -20,7 +20,7 @@ public class Main {
             System.out.println(Constants.PRODUCT_LIST_HEADER);
             System.out.println(Constants.PRODUCT_LIST_COLUMNS);
             for (int i = 0; i < items.size(); i++) {
-                System.out.println(i + 1 + ". " + items.get(i));
+                System.out.println(String.format("%-7d %-11s %-9d %d", i + 1, items.get(i).getName(), items.get(i).getPrice(), items.get(i).getQuantity()));
             }
             System.out.println(Constants.EXIT_OPTION);
             System.out.print(Constants.ENTER_PRODUCT_NUMBER);
@@ -50,8 +50,8 @@ public class Main {
 
                 totalPrice += selectedItem.getPrice() * quantity;
                 selectedItem.decreaseQuantity(quantity);
-                System.out.println(selectedItem.getName() + " " + quantity + "개 추기되었습니다.");
-                System.out.println("현재가격: " + totalPrice + "원");
+                System.out.println("\n" + selectedItem.getName() + " " + quantity + "개 추기되었습니다.");
+                System.out.println("현재가격: " + totalPrice + "원\n");
 
                 System.out.print(Constants.PROCEED_PURCHASE);
                 while (true) {
@@ -64,34 +64,37 @@ public class Main {
                             purchaseFlag = 1;
                             break;
                         } else {
-                            throw new IllegalArgumentException(Constants.INVALID_INPUT);
+                            throw new IllegalArgumentException("\n" + Constants.INVALID_INPUT);
                         }
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
                         System.out.print(Constants.PROCEED_PURCHASE);
                     }
                 }
-            } catch (IllegalArgumentException e) {
+            }catch (NumberFormatException e) {
+                System.out.println(Constants.INVALID_QUANTITY);
+            }
+            catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
         if (convenienceFlag == 0) {
             while (true) {
                 try {
-                    System.out.print(Constants.ENTER_AMOUNT);
+                    System.out.print("\n" + Constants.ENTER_AMOUNT);
                     int amountPaid = Integer.parseInt(scanner.nextLine());
 
                     if (amountPaid < totalPrice) {
-                        System.out.println(Constants.INSUFFICIENT_FUNDS);
+                        System.out.println("\n" + Constants.INSUFFICIENT_FUNDS);
                     } else if (amountPaid == totalPrice) {
-                        System.out.println(Constants.PAYMENT_COMPLETED);
+                        System.out.println("\n" + Constants.PAYMENT_COMPLETED);
                         break;
                     } else {
-                        System.out.println("계산이 완료되었습니다. 거스름돈: " + (amountPaid - totalPrice) + "원");
+                        System.out.println("\n계산이 완료되었습니다. 거스름돈: " + (amountPaid - totalPrice) + "원");
                         break;
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println(Constants.INVALID_AMOUNT);
+                    System.out.println("\n" + Constants.INVALID_AMOUNT);
                 }
             }
 
@@ -99,18 +102,4 @@ public class Main {
         }
     }
 
-    public static List<Item> initializeProductList() {
-        List<Item> productList = new ArrayList<>();
-        productList.add(new Item("콜라", 1000, 10));
-        productList.add(new Item("사이다", 1000, 8));
-        productList.add(new Item("물", 500, 28));
-        productList.add(new Item("감자칩", 1500, 7));
-        productList.add(new Item("초코바", 1200, 15));
-        productList.add(new Item("정식도시락", 6400, 8));
-        productList.add(new Item("컵라면", 1700, 15));
-        productList.add(new Item("삼각김밥", 2000, 12));
-        productList.add(new Item("소주", 5000, 9));
-        productList.add(new Item("맥주", 2500, 13));
-        return productList;
-    }
 }
