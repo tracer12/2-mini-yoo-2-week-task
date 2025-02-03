@@ -1,6 +1,7 @@
 # ** 간단한 편의점 CLI 프로그램 **
 ## ** 재고 상황을 고려하여 최종 결제 금액을 계산하고 안내하는 결제 시스템을 구현한다. **
 
+![Image](https://github.com/user-attachments/assets/3ff4c429-9c85-4570-bf8e-8b56197e692e)
 
 ## 구현할 기능 목록
 
