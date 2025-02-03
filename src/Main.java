@@ -17,35 +17,35 @@ public class Main {
             if (purchaseFlag == 1) {
                 break;
             }
-            System.out.println("===== 편의점 상품 목록 =====");
-            System.out.println("재고        가격        수량");
+            System.out.println(Constants.PRODUCT_LIST_HEADER);
+            System.out.println(Constants.PRODUCT_LIST_COLUMNS);
             for (int i = 0; i < items.size(); i++) {
                 System.out.println(i + 1 + ". " + items.get(i));
             }
-            System.out.println("0. 종료");
-            System.out.print("무슨 상품을 구매하시겠습니까? (번호 입력): ");
+            System.out.println(Constants.EXIT_OPTION);
+            System.out.print(Constants.ENTER_PRODUCT_NUMBER);
 
             int productIndex = -1;
             try {
                 productIndex = Integer.parseInt(scanner.nextLine()) - 1;
 
                 if (productIndex == EXIT_OPTION) {
-                    System.out.println("프로그램을 종료합니다.");
+                    System.out.println(Constants.PROGRAM_EXIT_MESSAGE);
                     convenienceFlag = 1;
                     break;
                 }
 
                 if (productIndex < 0 || productIndex >= items.size()) {
-                    throw new IllegalArgumentException("유효하지 않은 상품 번호입니다.");
+                    throw new IllegalArgumentException(Constants.INVALID_PRODUCT_NUMBER);
                 }
 
                 Item selectedItem = items.get(productIndex);
 
-                System.out.print(selectedItem.getName() + " 몇 개를 구매하시겠습니까? ");
+                System.out.print(selectedItem.getName() + Constants.ENTER_PRODUCT_QUANTITY);
                 int quantity = Integer.parseInt(scanner.nextLine());
 
                 if (quantity < MIN_QUANTITY || quantity > selectedItem.getQuantity()) {
-                    throw new IllegalArgumentException("재고가 부족하거나 유효하지 않은 수량입니다.");
+                    throw new IllegalArgumentException(Constants.INVALID_QUANTITY);
                 }
 
                 totalPrice += selectedItem.getPrice() * quantity;
@@ -53,7 +53,7 @@ public class Main {
                 System.out.println(selectedItem.getName() + " " + quantity + "개 추기되었습니다.");
                 System.out.println("현재가격: " + totalPrice + "원");
 
-                System.out.print("계산을 진행하시겠습니까? Y/N: ");
+                System.out.print(Constants.PROCEED_PURCHASE);
                 while (true) {
                     try {
                         String input = scanner.nextLine().toUpperCase();
@@ -64,15 +64,13 @@ public class Main {
                             purchaseFlag = 1;
                             break;
                         } else {
-                            throw new IllegalArgumentException("잘못된 입력입니다, 다시 입력해주세요.");
+                            throw new IllegalArgumentException(Constants.INVALID_INPUT);
                         }
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
-                        System.out.print("계산을 진행하시겠습니까? Y/N: ");
+                        System.out.print(Constants.PROCEED_PURCHASE);
                     }
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("잘못된 숫자 입력입니다. 다시 시도해 주세요.");
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -80,20 +78,20 @@ public class Main {
         if (convenienceFlag == 0) {
             while (true) {
                 try {
-                    System.out.print("금액을 입력하세요: ");
+                    System.out.print(Constants.ENTER_AMOUNT);
                     int amountPaid = Integer.parseInt(scanner.nextLine());
 
                     if (amountPaid < totalPrice) {
-                        System.out.println("금액이 부족합니다. 다시 입력해 주세요.");
+                        System.out.println(Constants.INSUFFICIENT_FUNDS);
                     } else if (amountPaid == totalPrice) {
-                        System.out.println("계산이 완료되었습니다. 감사합니다!");
+                        System.out.println(Constants.PAYMENT_COMPLETED);
                         break;
                     } else {
                         System.out.println("계산이 완료되었습니다. 거스름돈: " + (amountPaid - totalPrice) + "원");
                         break;
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("유효하지 않은 금액입니다. 숫자만 입력해 주세요.");
+                    System.out.println(Constants.INVALID_AMOUNT);
                 }
             }
 
