@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,7 +10,7 @@ public class Main {
         List<Item> items = ProductList.initializeProductList();
         int totalPrice = 0;
         int purchaseFlag = 0;
-        int convenienceFlag = 0;
+        int runConvenienceFlag = 0;
         //상품 추가 로직
         while (true) {
             if (purchaseFlag == 1) {
@@ -31,7 +30,7 @@ public class Main {
 
                 if (productIndex == EXIT_OPTION) {
                     System.out.println(Constants.PROGRAM_EXIT_MESSAGE);
-                    convenienceFlag = 1;
+                    runConvenienceFlag = 1;
                     break;
                 }
 
@@ -80,7 +79,7 @@ public class Main {
             }
         }
         //결제 로직
-        if (convenienceFlag == 0) {
+        if (runConvenienceFlag == 0) {
             while (true) {
                 try {
                     System.out.print("\n" + Constants.ENTER_AMOUNT);

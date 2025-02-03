@@ -1,9 +1,12 @@
 public class Product extends BaseProduct {
-    public Product(int order, String name, int price, int quantity) {
-        super(order, name, price, quantity);
+    private int price;
+
+    public Product(int order, String name, int price) {
+        super(order, name);
+        this.price = price;
     }
 
-    public void decreaseQuantity(int amount) {
-        this.quantity -= amount;
+    public int getPrice() {
+        return price;
     }
 }
