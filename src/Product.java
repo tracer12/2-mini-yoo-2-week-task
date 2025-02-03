@@ -1,5 +1,5 @@
 public class Product extends BaseProduct {
-    private int price;
+    private final int price;
 
     public Product(int order, String name, int price) {
         super(order, name);

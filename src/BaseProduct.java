@@ -1,6 +1,6 @@
 public class BaseProduct {
-    private int order;
-    private String name;
+    private final int order;
+    private final String name;
 
     public BaseProduct(int order, String name) {
         this.order = order;
