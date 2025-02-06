@@ -43,8 +43,11 @@ public class Main {
                 System.out.print(selectedItem.getName() + Constants.ENTER_PRODUCT_QUANTITY);
                 int quantity = Integer.parseInt(scanner.nextLine());
 
-                if (quantity < MIN_QUANTITY || quantity > selectedItem.getQuantity()) {
+                if (quantity < MIN_QUANTITY) {
                     throw new IllegalArgumentException(Constants.INVALID_QUANTITY);
+                }
+                if(quantity > selectedItem.getQuantity()){
+                    throw new IllegalArgumentException(selectedItem.getName() + "는 " + selectedItem.getQuantity() + "개 만큼 구매하실 수 있습니다.\n");
                 }
 
                 totalPrice += selectedItem.getPrice() * quantity;
