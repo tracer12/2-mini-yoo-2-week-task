@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static final int EXIT_OPTION = -1;
+    private static final int EXIT_CODE = -1;
     private static final int MIN_QUANTITY = 1;
 
     public static void main(String[] args) {
@@ -28,7 +28,7 @@ public class Main {
             try {
                 productIndex = Integer.parseInt(scanner.nextLine()) - 1;
 
-                if (productIndex == EXIT_OPTION) {
+                if (productIndex == EXIT_CODE) {
                     System.out.println(Constants.PROGRAM_EXIT_MESSAGE);
                     runConvenienceFlag = 1;
                     break;
