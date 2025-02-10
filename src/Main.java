@@ -40,14 +40,22 @@ public class Main {
 
                 Item selectedItem = items.get(productIndex);
 
+                if(selectedItem.getQuantity() == 0){
+                    System.out.println("재고가 부족합니다, 재고를 추가합니다.");
+                    RestockThread restockThread = new RestockThread(selectedItem);
+                    restockThread.start();
+                }
+
+
                 System.out.print(selectedItem.getName() + Constants.ENTER_PRODUCT_QUANTITY);
                 int quantity = Integer.parseInt(scanner.nextLine());
+
 
                 if (quantity < MIN_QUANTITY) {
                     throw new IllegalArgumentException(Constants.INVALID_QUANTITY);
                 }
                 if(quantity > selectedItem.getQuantity()){
-                    throw new IllegalArgumentException(selectedItem.getName() + "는 " + selectedItem.getQuantity() + "개 만큼 구매하실 수 있습니다.\n");
+                        throw new IllegalArgumentException(selectedItem.getName() + "는 " + selectedItem.getQuantity() + "개 만큼 구매하실 수 있습니다.\n");
                 }
 
                 totalPrice += selectedItem.getPrice() * quantity;
