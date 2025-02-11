@@ -9,12 +9,15 @@ public class RestockThread extends Thread {
 
     public void run() {
         try {
+            System.out.println("상품을 추가중입니다...");
+            Thread.sleep(2000);
+
             Random random = new Random();
             int restockAmount = random.nextInt(10) + 1;
             System.out.println(item.getName() + "의 개수가 " + restockAmount + "개 추가되었습니다.");
             item.decreaseQuantity(-restockAmount);
         }catch (Exception e){
-            System.out.println("재고 추가 중 오류 발생" + e.getMessage());
+            System.out.println(Constants.ADD_PRODUCT_ERROR_MESSAGE + e.getMessage());
         }
     }
 }

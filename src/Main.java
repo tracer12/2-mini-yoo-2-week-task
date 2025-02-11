@@ -11,6 +11,9 @@ public class Main {
         int totalPrice = 0;
         int purchaseFlag = 0;
         int runConvenienceFlag = 0;
+
+        EntryTimeThread entryTimeThread = new EntryTimeThread();
+        entryTimeThread.start();
         //상품 추가 로직
         while (true) {
             if (purchaseFlag == 1) {
@@ -22,12 +25,19 @@ public class Main {
                 System.out.println(String.format("%-7d %-11s %-9d %d", items.get(i).getOrder(), items.get(i).getName(), items.get(i).getPrice(), items.get(i).getQuantity()));
             }
             System.out.println(Constants.EXIT_OPTION);
+            System.out.println(Constants.ENTRY_TIME_OPTION);
             System.out.print(Constants.ENTER_PRODUCT_NUMBER);
 
             int productIndex = -1;
-            try {
-                productIndex = Integer.parseInt(scanner.nextLine()) - 1;
+            String input = scanner.nextLine();
 
+            if (input.equals("*")) {
+                System.out.println(entryTimeThread.getElapsedTime());
+                continue;
+            }
+
+            try {
+                productIndex = Integer.parseInt(input) - 1;
                 if (productIndex == EXIT_CODE) {
                     System.out.println(Constants.PROGRAM_EXIT_MESSAGE);
                     runConvenienceFlag = 1;
@@ -41,11 +51,15 @@ public class Main {
                 Item selectedItem = items.get(productIndex);
 
                 if(selectedItem.getQuantity() == 0){
-                    System.out.println("재고가 부족합니다, 재고를 추가합니다.");
+                    System.out.println(Constants.ADD_PRODUCT_MESSAGE);
                     RestockThread restockThread = new RestockThread(selectedItem);
                     restockThread.start();
+                    try {
+                        restockThread.join();
+                    } catch (InterruptedException e) {
+                        System.out.println(Constants.ADD_PRODUCT_ERROR_MESSAGE + e.getMessage());
+                    }
                 }
-
 
                 System.out.print(selectedItem.getName() + Constants.ENTER_PRODUCT_QUANTITY);
                 int quantity = Integer.parseInt(scanner.nextLine());
@@ -67,11 +81,11 @@ public class Main {
                 //재구매 로직
                 while (true) {
                     try {
-                        String input = scanner.nextLine().toUpperCase();
+                        String buyInput = scanner.nextLine().toUpperCase();
 
-                        if (input.equals("N")) {
+                        if (buyInput.equals("N")) {
                             break;
-                        } else if (input.equals("Y")) {
+                        } else if (buyInput.equals("Y")) {
                             purchaseFlag = 1;
                             break;
                         } else {
@@ -109,7 +123,7 @@ public class Main {
                     System.out.println("\n" + Constants.INVALID_AMOUNT);
                 }
             }
-
+            entryTimeThread.interrupt();
             scanner.close();
         }
     }

@@ -2,6 +2,7 @@ public class Constants {
     public static final String PRODUCT_LIST_HEADER = "========= 편의점 상품 목록 =========";
     public static final String PRODUCT_LIST_COLUMNS = "번호     제품이름       가격      수량";
     public static final String EXIT_OPTION = "0. 종료";
+    public static final String ENTRY_TIME_OPTION  = "*. 입장시간";
     public static final String ENTER_PRODUCT_NUMBER = "무슨 상품을 구매하시겠습니까? (번호 입력): ";
     public static final String INVALID_PRODUCT_NUMBER = "유효하지 않은 상품 번호입니다.";
     public static final String ENTER_PRODUCT_QUANTITY = " 몇 개를 구매하시겠습니까? ";
@@ -13,4 +14,6 @@ public class Constants {
     public static final String PAYMENT_COMPLETED = "계산이 완료되었습니다. 감사합니다!";
     public static final String INVALID_AMOUNT = "유효하지 않은 금액입니다. 숫자만 입력해 주세요.";
     public static final String PROGRAM_EXIT_MESSAGE = "프로그램을 종료합니다.";
+    public static final String ADD_PRODUCT_ERROR_MESSAGE = "재고 추가에 실패하였습니다.";
+    public static final String ADD_PRODUCT_MESSAGE = "재고가 부족합니다, 재고를 추가합니다.";
 }
