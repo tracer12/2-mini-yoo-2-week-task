@@ -22,6 +22,7 @@ public class EntryTimeThread extends Thread {
     public String getElapsedTime() {
         long hours = (elapsedTime / (1000 * 60 * 60)) % 24;
         long minutes = (elapsedTime / (1000 * 60)) % 60;
-        return "현재 편의점에 입장하신지 " + hours + "시간 " + minutes + "분이 지났습니다.";
+        long seconds = (elapsedTime / 1000) % 60;
+        return "현재 편의점에 입장하신지 " + hours + "시간 " + minutes + "분 " + seconds + "초 가 지났습니다.";
     }
 }
